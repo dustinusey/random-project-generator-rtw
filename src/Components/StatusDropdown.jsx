@@ -83,7 +83,7 @@ export default function StatusDropdown(props) {
             id={`dropdown_${props.projectid}`}
             className={`z-10 ${
               isOpen ? "block" : "hidden"
-            } bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-950 absolute`}
+            } bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-950 absolute top-[95%]`}
           >
             <ul
               className="p-2 text-sm text-gray-700 dark:text-gray-200"

@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { AppState } from "../App";
 import Alert from "./Alert";
 import Project from "./Project";
+import Spinner from "./Spinner";
 import TableHeader from "./TableHeader";
 import TablePagination from "./TablePagination";
 import Tabs from "./Tabs";
@@ -14,13 +15,13 @@ const supabase = createClient(
 );
 
 export default function ProjectTable() {
-  const { theme, alert, setAlert } = useContext(AppState);
+  const { theme, alert, setAlert, loading, isLoading } = useContext(AppState);
   const [projects, setProjects] = useState([]);
-
-  //   const [loadingProject, setLoadingProject] = useState(false);
 
   useEffect(() => {
     fetchProjects();
+
+    isLoading(false);
   }, []);
 
   const fetchProjects = async () => {
@@ -34,7 +35,7 @@ export default function ProjectTable() {
   }
 
   async function generateNewProject() {
-    // setLoadingProject(true);
+    isLoading(true);
 
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
@@ -70,7 +71,7 @@ export default function ProjectTable() {
         },
       ]);
       await fetchProjects();
-      // setLoadingProject(false);
+      isLoading(false);
     } catch (error) {
       console.error(`ERROR: ${error}`);
     }
@@ -85,6 +86,7 @@ export default function ProjectTable() {
     });
 
     inProgress < 1 ? generateNewProject() : setAlert(true);
+    // generateNewProject();
   }
 
   return (
@@ -97,6 +99,9 @@ export default function ProjectTable() {
           <TableHeader handleNewProject={handleNewProject} />
 
           <Tabs />
+          <div className="m-5 loading-container m-auto">
+            {loading && <Spinner />}
+          </div>
 
           <div className="relative shadow-md sm:rounded-lg">
             <table className="overflow-hidden rounded-lg w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
