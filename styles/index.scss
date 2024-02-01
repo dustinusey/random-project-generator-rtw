@@ -1,3 +1,70 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@mixin flex($direction, $wrapping, $justification, $alignment) {
+  @content;
+  display: flex;
+  flex-direction: $direction;
+  flex-wrap: $wrapping;
+  justify-content: $justification;
+  align-items: $alignment;
+}
+
+@mixin center-flex {
+  @content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin size($height, $width) {
+  @content;
+  height: $height;
+  width: $width;
+}
+
+@mixin same-size($size) {
+  @content;
+  height: $size;
+  width: $size;
+}
+
+@mixin absolute-center {
+  @content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin bg($color) {
+  @content;
+  background-color: $color;
+}
+
+@mixin shorten($lines) {
+  @content;
+  // display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.shorten1 {
+  @include shorten(1);
+}
+.shorten2 {
+  @include shorten(2);
+}
+
+.test {
+  color: red !important;
+  border-bottom: 5px solid red;
+}
