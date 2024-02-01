@@ -1,11 +1,18 @@
+import { useContext } from "react";
+import { AppState } from "../App";
+
 export default function GenerateProjectBtn(props) {
+  const { loading } = useContext(AppState);
+
   return (
     <>
       <button
         onClick={props.handleNewProject}
         data-popover-target="popover-default"
         type="button"
-        className="transition ease-in-out text-white bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 ml-auto mr-[2rem] mb-2 dark:bg-sky-600 dark:hover:bg-sky-600 focus:outline-none dark:focus:ring-sky-400"
+        className={`${
+          loading && "disabled"
+        } transition ease-in-out text-white bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 ml-auto mr-[2rem] mb-2 dark:bg-sky-600 dark:hover:bg-sky-600 focus:outline-none dark:focus:ring-sky-400`}
       >
         New Random Project
       </button>
