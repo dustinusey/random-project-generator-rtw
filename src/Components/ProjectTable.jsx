@@ -2,6 +2,7 @@ import { createClient } from "@supabase/supabase-js";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AppState } from "../App";
+import Alert from "./Alert";
 import Project from "./Project";
 import TableHeader from "./TableHeader";
 import TablePagination from "./TablePagination";
@@ -13,7 +14,7 @@ const supabase = createClient(
 );
 
 export default function ProjectTable() {
-  const { theme } = useContext(AppState);
+  const { theme, alert, setAlert } = useContext(AppState);
   const [projects, setProjects] = useState([]);
 
   //   const [loadingProject, setLoadingProject] = useState(false);
@@ -76,11 +77,19 @@ export default function ProjectTable() {
   }
 
   function handleNewProject() {
-    generateNewProject();
+    let inProgress = 0;
+    projects.forEach((project) => {
+      if (project.status.includes("In Progress")) {
+        inProgress += 1;
+      }
+    });
+
+    inProgress < 1 ? generateNewProject() : setAlert(true);
   }
 
   return (
     <div className={theme ? "dark " : ""}>
+      {alert && <Alert />}
       <div
         className={`project-table mx-auto my-auto flex flex-col items-center justify-center min-h-screen bg-slate-200 dark:bg-slate-700 duration-300`}
       >

@@ -68,3 +68,7 @@
   color: red !important;
   border-bottom: 5px solid red;
 }
+
+.component-centered {
+  @include absolute-center;
+}
