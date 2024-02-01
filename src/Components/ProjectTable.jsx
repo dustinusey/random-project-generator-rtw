@@ -7,6 +7,7 @@ import TableHeader from './TableHeader';
 import TablePagination from './TablePagination';
 import Tabs from './Tabs';
 
+
 const supabase = createClient(
     import.meta.env.VITE_SB_URL,
     import.meta.env.VITE_SB_KEY
@@ -96,11 +97,17 @@ export default function ProjectTable() {
                             <tbody>
                                 
                                 {projects.map((project) => {
+                                    const id = project.id.toString();
                                     const date = new Date(project.created_at)
                                     const formattedDate = `${date.toLocaleString('default', { month: 'long' })} ${date.getDate()}, ${date.getFullYear()}`;
-                                    return (
-                                        <Project key={project.id} projectName={project.name} createdAt={formattedDate} status={project.status} github={project.github_url}  />
-                                        )
+                                    return (<Project 
+                                                key={project.id} 
+                                                id={id} 
+                                                projectName={project.name} 
+                                                createdAt={formattedDate} 
+                                                status={project.status} 
+                                                github={project.github_url}  
+                                        />)
                                     }
                                 )}
                                 
