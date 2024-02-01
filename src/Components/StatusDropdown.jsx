@@ -6,6 +6,13 @@ export default function StatusDropdown(props) {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => setIsOpen(!isOpen);
 
+  function handleComplete() {
+    alert("hello world");
+  }
+
+  function handleAbandon() {
+    alert("abandonedddd lolololol");
+  }
   return (
     <>
       {props.status !== "In Progress" ? (
@@ -99,6 +106,9 @@ export default function StatusDropdown(props) {
               </li>
               <li>
                 <a
+                  onClick={() => {
+                    handleComplete();
+                  }}
                   href="#"
                   className=" rounded-lg block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                 >
@@ -107,6 +117,9 @@ export default function StatusDropdown(props) {
               </li>
               <li>
                 <a
+                  onClick={() => {
+                    handleAbandon();
+                  }}
                   href="#"
                   className=" rounded-lg block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                 >
