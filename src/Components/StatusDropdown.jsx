@@ -8,7 +8,7 @@ export default function StatusDropdown(props) {
 
   return (
     <>
-      {props.status !== "in_progress" ? (
+      {props.status !== "In Progress" ? (
         <p
           onClick={toggleDropdown}
           data-dropdown-toggle={`dropdown_${props.projectid}`}

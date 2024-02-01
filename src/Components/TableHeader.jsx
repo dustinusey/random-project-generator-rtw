@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AppState } from "../App";
 import GenerateProjectBtn from "./GenerateProjectBtn";
 
-export default function TableHeader() {
+export default function TableHeader(props) {
   const { theme, setTheme } = useContext(AppState);
 
   return (
@@ -12,7 +12,7 @@ export default function TableHeader() {
         Your Projects
       </h1>
 
-      <GenerateProjectBtn />
+      <GenerateProjectBtn handleNewProject={props.handleNewProject} />
 
       {/* theme icon */}
       {!theme ? (
