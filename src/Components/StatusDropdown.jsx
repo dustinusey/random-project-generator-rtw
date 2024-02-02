@@ -98,7 +98,7 @@ export default function StatusDropdown(props) {
               className="p-2 text-sm text-gray-700 dark:text-gray-200"
               aria-labelledby="dropdownDefaultButton"
             >
-              <li className="disabled rounded-lg">
+              <li className="duration-300 disabled rounded-lg">
                 <a
                   href="#"
                   className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
@@ -112,7 +112,7 @@ export default function StatusDropdown(props) {
                     handleCompleteModal();
                   }}
                   href="#"
-                  className=" rounded-lg block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                  className="duration-300 rounded-lg block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                 >
                   Complete
                 </a>

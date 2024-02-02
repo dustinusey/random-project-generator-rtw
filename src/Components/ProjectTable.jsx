@@ -2,7 +2,7 @@ import { createClient } from "@supabase/supabase-js";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AppState } from "../App";
-import Alert from "./Alert";
+import Alert from "./Alerts/Alert";
 import Project from "./Project";
 import Spinner from "./Spinner";
 import TableHeader from "./TableHeader";
@@ -103,7 +103,7 @@ export default function ProjectTable() {
   }
 
   return (
-    <div className={!theme ? "dark " : ""}>
+    <div className={theme ? "dark " : ""}>
       {alert && <Alert />}
       <div
         className={`project-table mx-auto my-auto flex flex-col items-center justify-center min-h-screen bg-slate-200 dark:bg-slate-700 duration-300`}
