@@ -1,24 +1,27 @@
 // import PropTypes from 'prop-types';
-
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AppState } from "../App";
 
 export default function StatusDropdown(props) {
+  const { setAlert } = useContext(AppState);
+
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => setIsOpen(!isOpen);
 
-  function handleComplete() {
-    alert("hello world");
+  function handleCompleteModal() {
+    setIsOpen(false);
+    setAlert("complete");
   }
 
-  function handleAbandon() {
-    alert("abandonedddd lolololol");
+  function handleAbandonModal() {
+    setIsOpen(false);
+    setAlert("abandon");
   }
   return (
     <>
       {props.status !== "In Progress" ? (
         <p
           onClick={toggleDropdown}
-          data-dropdown-toggle={`dropdown_${props.projectid}`}
           className={`${
             props.status === "abandoned"
               ? "bg-red-500 dark:bg-red-500"
@@ -64,7 +67,6 @@ export default function StatusDropdown(props) {
           <button
             onClick={toggleDropdown}
             id="dropdownDefaultButton"
-            data-dropdown-toggle={`dropdown_${props.projectid}`}
             className="text-white bg-sky-600 hover:bg-sky-700 duration-300 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-sky-600 dark:hover:bg-sky-700  dark:focus:ring-gray-500"
             type="button"
           >
@@ -101,13 +103,13 @@ export default function StatusDropdown(props) {
                   href="#"
                   className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                 >
-                  in_progress
+                  In Progress
                 </a>
               </li>
               <li>
                 <a
                   onClick={() => {
-                    handleComplete();
+                    handleCompleteModal();
                   }}
                   href="#"
                   className=" rounded-lg block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
@@ -118,7 +120,7 @@ export default function StatusDropdown(props) {
               <li>
                 <a
                   onClick={() => {
-                    handleAbandon();
+                    handleAbandonModal();
                   }}
                   href="#"
                   className=" rounded-lg block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"

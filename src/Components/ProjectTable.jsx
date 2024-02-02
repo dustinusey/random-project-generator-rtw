@@ -78,19 +78,32 @@ export default function ProjectTable() {
   }
 
   function handleNewProject() {
+    console.log("handling...");
     let inProgress = 0;
     projects.forEach((project) => {
-      if (project.status.includes("In Progress")) {
+      if (project.status === "In Progress") {
         inProgress += 1;
       }
     });
 
-    inProgress < 1 ? generateNewProject() : setAlert(true);
+    if (inProgress < 1) {
+      generateNewProject();
+    } else {
+      setAlert("error");
+    }
+
     // generateNewProject();
   }
 
+  async function updateStatusInDB(updatedStatus, projectID) {
+    await supabase
+      .from("projects")
+      .update({ status: updatedStatus })
+      .match({ id: projectId });
+  }
+
   return (
-    <div className={theme ? "dark " : ""}>
+    <div className={!theme ? "dark " : ""}>
       {alert && <Alert />}
       <div
         className={`project-table mx-auto my-auto flex flex-col items-center justify-center min-h-screen bg-slate-200 dark:bg-slate-700 duration-300`}
