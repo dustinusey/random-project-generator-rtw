@@ -3,9 +3,10 @@ import { AppState } from "../../App";
 
 import Abandon from "./Abandon";
 import Complete from "./Complete";
+import Error from "./Error";
 
-export default function Alert(props) {
-  const { alert, setAlert } = useContext(AppState);
+export default function Alert() {
+  const { alert } = useContext(AppState);
 
   return (
     // overlay
@@ -19,6 +20,7 @@ export default function Alert(props) {
       <div className="relative p-4 w-full max-w-2xl max-h-full">
         {alert === "complete" && <Complete />}
         {alert === "abandon" && <Abandon />}
+        {alert === "error" && <Error />}
       </div>
     </div>
   );
