@@ -20,16 +20,16 @@ export default function ProjectTable() {
 
   useEffect(() => {
     fetchProjects();
-
-    isLoading(false);
   }, []);
 
   const fetchProjects = async () => {
     const newProjects = await getProjects();
     setProjects(newProjects.reverse());
+    isLoading(false);
   };
 
   async function getProjects() {
+    isLoading(true);
     const { data } = await supabase.from("projects").select();
     return data;
   }
@@ -71,7 +71,7 @@ export default function ProjectTable() {
         },
       ]);
       await fetchProjects();
-      isLoading(false);
+      // isLoading(false);
     } catch (error) {
       console.error(`ERROR: ${error}`);
     }
@@ -103,7 +103,7 @@ export default function ProjectTable() {
   }
 
   return (
-    <div className={!theme ? "dark" : ""}>
+    <div className={theme ? "dark" : ""}>
       {alert && <Alert />}
       <div
         className={`project-table mx-auto my-auto flex flex-col items-center justify-center min-h-screen bg-slate-200 dark:bg-slate-700 duration-300`}

@@ -3,6 +3,7 @@ import { AppState } from "../../App";
 
 export default function Complete() {
   const { setAlert } = useContext(AppState);
+
   const messages = [
     "Wow, you finished a project. Groundbreaking.",
     "Congratulations, you've successfully pressed some keys. Impressive.",
