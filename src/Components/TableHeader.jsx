@@ -17,7 +17,10 @@ export default function TableHeader(props) {
       {/* theme icon */}
       {!theme ? (
         <svg
-          onClick={() => setTheme(!theme)}
+          onClick={() => {
+            setTheme(!theme);
+            localStorage.setItem("theme", theme);
+          }}
           className="cursor-pointer mb-[.33rem] w-6 h-6 text-gray-800 dark:text-white"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +37,10 @@ export default function TableHeader(props) {
         </svg>
       ) : (
         <svg
-          onClick={() => setTheme(!theme)}
+          onClick={() => {
+            setTheme(!theme);
+            localStorage.setItem("theme", theme);
+          }}
           className="cursor-pointer mb-[.33rem] w-6 h-6 text-gray-800 dark:text-white"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"

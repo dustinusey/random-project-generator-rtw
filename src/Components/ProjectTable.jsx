@@ -103,7 +103,7 @@ export default function ProjectTable() {
   }
 
   return (
-    <div className={theme ? "dark " : ""}>
+    <div className={!theme ? "dark" : ""}>
       {alert && <Alert />}
       <div
         className={`project-table mx-auto my-auto flex flex-col items-center justify-center min-h-screen bg-slate-200 dark:bg-slate-700 duration-300`}
@@ -112,7 +112,7 @@ export default function ProjectTable() {
           <TableHeader handleNewProject={handleNewProject} />
 
           <Tabs />
-          <div className="m-5 loading-container m-auto">
+          <div className="loading-container m-auto">
             {loading && <Spinner />}
           </div>
 
