@@ -22,10 +22,10 @@ export default function Project(props) {
         <p className="shorten1">{props.createdAt}</p>
       </td>
 
-      <td className="px-3 pr-0 py-4 w-fit">
+      <td className="w-[165px] px-3 pr-0 py-4">
         <StatusDropdown projectid={props.id} status={props.status} />
       </td>
-      <td className="px-6 py-4 max-w-[150px]">
+      <td className="min-w-[250px] px-6 py-4 ">
         <p className="duration-300 text-sky-400  shorten1" href="#">
           {props.github}
         </p>

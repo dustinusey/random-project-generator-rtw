@@ -33,7 +33,10 @@ export default function Complete() {
   async function updateProjectStatus(updatedStatus, project) {
     await supabase
       .from("projects")
-      .update({ status: updatedStatus })
+      .update({
+        status: updatedStatus,
+        github_url: "https://www.github.com/...",
+      })
       .match({ id: project.id });
 
     const newProjects = await getProjects();

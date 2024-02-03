@@ -45,11 +45,12 @@
 
 @mixin shorten($lines) {
   @content;
-  // display: -webkit-box;
+  display: -webkit-box;
   text-overflow: ellipsis;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: $lines;
+  white-space: wrap;
 }
 
 .disabled {
