@@ -13,7 +13,7 @@ export default function Project(props) {
       className="duration-300 odd:bg-white even:bg-gray-50 even:dark:bg-gray-900 odd:dark:bg-gray-800 dark:border-gray-900 border-b "
     >
       <th
-        className="max-w-[250px] px-6 py-4 font-normal whitespace-nowrap text-gray-500 dark:text-white"
+        className=" w-[300px] px-6 py-4 font-normal whitespace-nowrap text-gray-500 dark:text-white"
         scope="row"
       >
         <p className="duration-300 shorten2">{props.projectName}</p>
