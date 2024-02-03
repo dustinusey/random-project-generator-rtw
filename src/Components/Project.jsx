@@ -42,7 +42,7 @@ export default function Project(props) {
           </svg>
 
           <a
-            className="duration-300 text-sky-400 hover:text-sky-500 shorten1"
+            className="duration-300 text-sky-500 dark:text-sky-500 dark:hover:text-sky-400 hover:text-sky-400 shorten1"
             href={`https://www.github.com/dustinusey/${props.github}`}
           >
             {props.github}

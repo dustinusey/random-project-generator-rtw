@@ -7,7 +7,6 @@ import Project from "./Project";
 import Spinner from "./Spinner";
 import TableHeader from "./TableHeader";
 import TablePagination from "./TablePagination";
-import Tabs from "./Tabs";
 
 const supabase = createClient(
   import.meta.env.VITE_SB_URL,
@@ -113,9 +112,6 @@ export default function ProjectTable() {
         <div className="wrapper max-w-[900px] w-[80%]">
           {/* table header */}
           <TableHeader handleNewProject={handleNewProject} />
-
-          {/* tabs */}
-          <Tabs />
 
           {/* loader/spinner */}
           <div className="loading-container m-auto">
