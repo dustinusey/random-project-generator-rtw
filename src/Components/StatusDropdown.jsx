@@ -87,48 +87,49 @@ export default function StatusDropdown(props) {
               />
             </svg>
           </button>
-
-          <div
-            id={`dropdown_${props.projectid}`}
-            className={`z-10 ${
-              isOpen ? "block" : "hidden"
-            } bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-950 absolute top-[95%]`}
-          >
-            <ul
-              className="p-2 text-sm text-gray-700 dark:text-gray-200"
-              aria-labelledby="dropdownDefaultButton"
+          <div className="absolute mt-3">
+            <div
+              id={`dropdown_${props.projectid}`}
+              className={`z-10 ${
+                isOpen ? "block" : "hidden"
+              } bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-950 relative`}
             >
-              <li className="duration-300 disabled rounded-lg">
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                  In Progress
-                </a>
-              </li>
-              <li>
-                <a
-                  onClick={() => {
-                    handleCompleteModal();
-                  }}
-                  href="#"
-                  className="duration-300 rounded-lg block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                  Complete
-                </a>
-              </li>
-              <li>
-                <a
-                  onClick={() => {
-                    handleAbandonModal();
-                  }}
-                  href="#"
-                  className=" rounded-lg block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                  Abandon
-                </a>
-              </li>
-            </ul>
+              <ul
+                className="p-2 text-sm text-gray-700 dark:text-gray-200"
+                aria-labelledby="dropdownDefaultButton"
+              >
+                <li className="duration-300 disabled rounded-lg">
+                  <a
+                    href="#"
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                  >
+                    In Progress
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={() => {
+                      handleCompleteModal();
+                    }}
+                    href="#"
+                    className="duration-300 rounded-lg block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                  >
+                    Complete
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={() => {
+                      handleAbandonModal();
+                    }}
+                    href="#"
+                    className=" rounded-lg block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                  >
+                    Abandon
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       )}
