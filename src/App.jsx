@@ -4,7 +4,7 @@ import ProjectTable from "./Components/ProjectTable";
 export const AppState = React.createContext();
 
 export default function App() {
-  const [theme, setTheme] = useState(false);
+  const [darkTheme, setDarkTheme] = useState(false);
   const [alert, setAlert] = useState("");
   const [loading, isLoading] = useState(false);
   const [currentProject, setCurrentProject] = useState("");
@@ -13,16 +13,17 @@ export default function App() {
 
   // initially sets theme in LS to false
   useEffect(() => {
-    !localStorage.theme
-      ? localStorage.setItem("theme", theme)
-      : setTheme(localStorage.getItem("theme"));
+    if (localStorage.getItem("darkTheme") === null) {
+      localStorage.setItem("darkTheme", false);
+    }
+    setDarkTheme(JSON.parse(localStorage.getItem("darkTheme")));
   }, []);
 
   return (
     <AppState.Provider
       value={{
-        theme,
-        setTheme,
+        darkTheme,
+        setDarkTheme,
         alert,
         setAlert,
         loading,

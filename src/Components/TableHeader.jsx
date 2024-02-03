@@ -4,7 +4,7 @@ import { AppState } from "../App";
 import GenerateProjectBtn from "./GenerateProjectBtn";
 
 export default function TableHeader(props) {
-  const { theme, setTheme } = useContext(AppState);
+  const { darkTheme, setDarkTheme } = useContext(AppState);
 
   return (
     <div className="flex justify-between items-center mb-4 p-4 bg-transparent">
@@ -15,11 +15,16 @@ export default function TableHeader(props) {
       <GenerateProjectBtn handleNewProject={props.handleNewProject} />
 
       {/* theme icon */}
-      {!theme ? (
+
+      {/* darktheme 1(moon) */}
+      {/* lighttheme 2(sun) */}
+      {!darkTheme ? (
         <svg
           onClick={() => {
-            setTheme(!theme);
-            localStorage.setItem("theme", theme);
+            const newTheme = !darkTheme;
+            setDarkTheme(newTheme);
+            localStorage.setItem("darkTheme", newTheme);
+            console.log(localStorage.getItem("darkTheme"));
           }}
           className="cursor-pointer mb-[.33rem] w-6 h-6 text-gray-800 dark:text-white"
           aria-hidden="true"
@@ -38,8 +43,10 @@ export default function TableHeader(props) {
       ) : (
         <svg
           onClick={() => {
-            setTheme(!theme);
-            localStorage.setItem("theme", theme);
+            const newTheme = !darkTheme;
+            setDarkTheme(newTheme);
+            localStorage.setItem("darkTheme", newTheme);
+            console.log(localStorage.getItem("darkTheme"));
           }}
           className="cursor-pointer mb-[.33rem] w-6 h-6 text-gray-800 dark:text-white"
           aria-hidden="true"

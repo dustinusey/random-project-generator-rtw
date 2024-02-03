@@ -15,7 +15,7 @@ const supabase = createClient(
 
 export default function ProjectTable() {
   const {
-    theme,
+    darkTheme,
     alert,
     loading,
     isLoading,
@@ -104,7 +104,7 @@ export default function ProjectTable() {
   }
 
   return (
-    <div className={!theme ? "dark" : ""}>
+    <div className={darkTheme ? "dark" : ""}>
       {alert && <Alert />}
       <div
         className={`project-table mx-auto my-auto flex flex-col items-center justify-center min-h-screen bg-slate-200 dark:bg-slate-700 duration-300`}
