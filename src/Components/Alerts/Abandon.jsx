@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AppState } from "../../App";
 
 export default function Abandon() {
-  const { setAlert, currentProject } = useContext(AppState);
+  const { setAlert, currentProject, setProjects } = useContext(AppState);
 
   const messages = [
     "Oops, project not quite there. Better luck next time, maybe?",
@@ -29,15 +29,21 @@ export default function Abandon() {
     import.meta.env.VITE_SB_URL,
     import.meta.env.VITE_SB_KEY
   );
-  ß;
+
   async function updateProjectStatus(updatedStatus, project) {
     await supabase
       .from("projects")
       .update({ status: updatedStatus })
       .match({ id: project.id });
-    setAlert(false);
 
-    // TODO:: figure out how to reload state after status is updated
+    const newProjects = await getProjects();
+    setProjects(newProjects.reverse());
+    setAlert(false);
+  }
+
+  async function getProjects() {
+    const { data } = await supabase.from("projects").select();
+    return data;
   }
 
   return (

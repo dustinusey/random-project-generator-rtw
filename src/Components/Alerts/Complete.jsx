@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AppState } from "../../App";
 
 export default function Complete() {
-  const { setAlert, currentProject } = useContext(AppState);
+  const { setAlert, currentProject, setProjects } = useContext(AppState);
 
   const messages = [
     "Wow, you finished a project. Groundbreaking.",
@@ -35,11 +35,16 @@ export default function Complete() {
       .from("projects")
       .update({ status: updatedStatus })
       .match({ id: project.id });
-    setAlert(false);
 
-    // TODO:: figure out how to reload state after status is updated
+    const newProjects = await getProjects();
+    setProjects(newProjects.reverse());
+    setAlert(false);
   }
 
+  async function getProjects() {
+    const { data } = await supabase.from("projects").select();
+    return data;
+  }
   return (
     <>
       {/* modal start */}

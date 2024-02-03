@@ -15,8 +15,8 @@ const supabase = createClient(
 );
 
 export default function ProjectTable() {
-  const { theme, alert, setAlert, loading, isLoading } = useContext(AppState);
-  const [projects, setProjects] = useState([]);
+  const { theme, alert, setAlert, loading, isLoading, projects, setProjects } =
+    useContext(AppState);
 
   useEffect(() => {
     fetchProjects();
@@ -77,7 +77,6 @@ export default function ProjectTable() {
   }
 
   function handleNewProject() {
-    console.log("handling...");
     let inProgress = 0;
     projects.forEach((project) => {
       if (project.status === "In Progress") {
