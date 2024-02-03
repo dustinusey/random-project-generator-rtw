@@ -1,10 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { AppState } from "../../App";
 
 export default function Complete() {
   const { setAlert, currentProject, setProjects } = useContext(AppState);
 
+  const URLInput = useRef("");
   const messages = [
     "Wow, you finished a project. Groundbreaking.",
     "Congratulations, you've successfully pressed some keys. Impressive.",
@@ -31,11 +32,12 @@ export default function Complete() {
   );
 
   async function updateProjectStatus(updatedStatus, project) {
+    console.log(URLInput.current);
     await supabase
       .from("projects")
       .update({
         status: updatedStatus,
-        github_url: "https://www.github.com/...",
+        github_url: URLInput.current,
       })
       .match({ id: project.id });
 
@@ -91,6 +93,9 @@ export default function Complete() {
             Drop the GitHub repo for the project to complete
           </p>
           <input
+            onKeyUp={(e) => {
+              URLInput.current = e.target.value;
+            }}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500"
             placeholder="https://www.github.com/..."
             required
