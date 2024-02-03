@@ -24,7 +24,7 @@ export default function StatusDropdown(props) {
           onClick={toggleDropdown}
           className={`${
             props.status === "abandoned"
-              ? "bg-red-300 dark:bg-red-400 dark:bg-opacity-50"
+              ? "bg-red-300 dark:bg-red-500 dark:bg-opacity-50"
               : "bg-gray-300 dark:bg-opacity-50 dark:bg-gray-600"
           } text-white cursor-default bg-gray-300 duration-300 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-gray-500   dark:focus:ring-gray-500" type="button`}
         >

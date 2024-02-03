@@ -3,7 +3,8 @@ import { useContext } from "react";
 import { AppState } from "../../App";
 
 export default function Abandon() {
-  const { setAlert, currentProject, setProjects } = useContext(AppState);
+  const { setAlert, currentProject, setProjects, isLoading } =
+    useContext(AppState);
 
   const messages = [
     "Oops, project not quite there. Better luck next time, maybe?",
@@ -31,6 +32,8 @@ export default function Abandon() {
   );
 
   async function updateProjectStatus(updatedStatus, project) {
+    isLoading(true);
+    setAlert(false);
     await supabase
       .from("projects")
       .update({ status: updatedStatus })
@@ -38,7 +41,7 @@ export default function Abandon() {
 
     const newProjects = await getProjects();
     setProjects(newProjects.reverse());
-    setAlert(false);
+    isLoading(false);
   }
 
   async function getProjects() {

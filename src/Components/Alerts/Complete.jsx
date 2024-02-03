@@ -1,9 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 import { useContext, useRef } from "react";
 import { AppState } from "../../App";
+import Spinner from "../Spinner";
 
 export default function Complete() {
-  const { setAlert, currentProject, setProjects } = useContext(AppState);
+  const { setAlert, currentProject, setProjects, isLoading } =
+    useContext(AppState);
 
   const URLInput = useRef("");
   const messages = [
@@ -32,7 +34,9 @@ export default function Complete() {
   );
 
   async function updateProjectStatus(updatedStatus, project) {
-    console.log(URLInput.current);
+    isLoading(true);
+
+    setAlert(false);
     await supabase
       .from("projects")
       .update({
@@ -44,6 +48,7 @@ export default function Complete() {
     const newProjects = await getProjects();
     setProjects(newProjects.reverse());
     setAlert(false);
+    isLoading(false);
   }
 
   async function getProjects() {
@@ -109,7 +114,7 @@ export default function Complete() {
             }}
             data-modal-hide="default-modal"
             type="button"
-            className="duration-300 text-white bg-emerald-500 hover:bg-emerald-400 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:ring-4 focus:outline- dark:focus:ring-emerald-500 focus:ring-emerald-200 font-medium rounded-lg text-sm px-5 py-2.5 text"
+            className="duration-300 text-white bg-emerald-500 hover:bg-emerald-400 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:ring-4 focus:outline- dark:focus:ring-emerald-500 focus:ring-emerald-200 font-medium rounded-lg text-sm px-5 py-2.5 text max-h-[40px] focus:z-10"
           >
             {alertData.CTA}
           </button>
