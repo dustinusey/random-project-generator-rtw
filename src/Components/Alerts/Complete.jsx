@@ -1,8 +1,9 @@
+import { createClient } from "@supabase/supabase-js";
 import { useContext } from "react";
 import { AppState } from "../../App";
 
 export default function Complete() {
-  const { setAlert } = useContext(AppState);
+  const { setAlert, currentProject } = useContext(AppState);
 
   const messages = [
     "Wow, you finished a project. Groundbreaking.",
@@ -23,6 +24,21 @@ export default function Complete() {
     CTA: "Complete Project",
     cancel: "Not Done Yet",
   };
+
+  const supabase = createClient(
+    import.meta.env.VITE_SB_URL,
+    import.meta.env.VITE_SB_KEY
+  );
+
+  async function updateProjectStatus(updatedStatus, project) {
+    await supabase
+      .from("projects")
+      .update({ status: updatedStatus })
+      .match({ id: project.id });
+    setAlert(false);
+
+    // TODO:: figure out how to reload state after status is updated
+  }
 
   return (
     <>
@@ -75,6 +91,9 @@ export default function Complete() {
         {/* modal footer */}
         <div className="flex items-center px-4 pb-4 pt-0">
           <button
+            onClick={() => {
+              updateProjectStatus("complete", currentProject);
+            }}
             data-modal-hide="default-modal"
             type="button"
             className="duration-300 text-white bg-emerald-500 hover:bg-emerald-400 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:ring-4 focus:outline- dark:focus:ring-emerald-500 focus:ring-emerald-200 font-medium rounded-lg text-sm px-5 py-2.5 text"

@@ -71,7 +71,6 @@ export default function ProjectTable() {
         },
       ]);
       await fetchProjects();
-      // isLoading(false);
     } catch (error) {
       console.error(`ERROR: ${error}`);
     }
@@ -95,29 +94,28 @@ export default function ProjectTable() {
     // generateNewProject();
   }
 
-  async function updateStatusInDB(updatedStatus, projectID) {
-    await supabase
-      .from("projects")
-      .update({ status: updatedStatus })
-      .match({ id: projectId });
-  }
-
   return (
-    <div className={theme ? "dark" : ""}>
+    <div className={!theme ? "dark" : ""}>
       {alert && <Alert />}
       <div
         className={`project-table mx-auto my-auto flex flex-col items-center justify-center min-h-screen bg-slate-200 dark:bg-slate-700 duration-300`}
       >
         <div className="wrapper max-w-[900px] w-[80%]">
+          {/* table header */}
           <TableHeader handleNewProject={handleNewProject} />
 
+          {/* tabs */}
           <Tabs />
+
+          {/* loader/spinner */}
           <div className="loading-container m-auto">
             {loading && <Spinner />}
           </div>
 
+          {/* project table */}
           <div className="relative shadow-md sm:rounded-lg">
             <table className="overflow-hidden rounded-lg w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              {/* table tutles */}
               <thead className=" duration-300 text-md text-gray-600 uppercase bg-gray-50 dark:bg-gray-900  dark:text-white">
                 <tr>
                   <th scope="col" className="px-6 py-7">
@@ -134,6 +132,8 @@ export default function ProjectTable() {
                   </th>
                 </tr>
               </thead>
+
+              {/* table body */}
               <tbody>
                 {projects.map((project) => {
                   const id = project.id.toString();
@@ -145,6 +145,7 @@ export default function ProjectTable() {
                     <Project
                       key={project.id}
                       id={id}
+                      project={project}
                       projectName={project.name}
                       createdAt={formattedDate}
                       status={project.status}
@@ -156,6 +157,7 @@ export default function ProjectTable() {
             </table>
           </div>
 
+          {/* table paginagation */}
           <TablePagination />
         </div>
       </div>

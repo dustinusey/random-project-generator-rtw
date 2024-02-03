@@ -1,8 +1,9 @@
+import { createClient } from "@supabase/supabase-js";
 import { useContext } from "react";
 import { AppState } from "../../App";
 
 export default function Abandon() {
-  const { setAlert } = useContext(AppState);
+  const { setAlert, currentProject } = useContext(AppState);
 
   const messages = [
     "Oops, project not quite there. Better luck next time, maybe?",
@@ -23,6 +24,21 @@ export default function Abandon() {
     body: messages[Math.floor(Math.random() * messages.length)],
     cancel: "Keep Working",
   };
+
+  const supabase = createClient(
+    import.meta.env.VITE_SB_URL,
+    import.meta.env.VITE_SB_KEY
+  );
+  ß;
+  async function updateProjectStatus(updatedStatus, project) {
+    await supabase
+      .from("projects")
+      .update({ status: updatedStatus })
+      .match({ id: project.id });
+    setAlert(false);
+
+    // TODO:: figure out how to reload state after status is updated
+  }
 
   return (
     <>
@@ -66,6 +82,9 @@ export default function Abandon() {
         {/* modal footer */}
         <div className="flex items-center px-4 pb-4 pt-0">
           <button
+            onClick={() => {
+              updateProjectStatus("abandoned", currentProject);
+            }}
             data-modal-hide="default-modal"
             type="button"
             className="duration-300 text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  dark:focus:ring-red-400"

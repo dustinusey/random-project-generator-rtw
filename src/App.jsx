@@ -7,6 +7,7 @@ export default function App() {
   const [theme, setTheme] = useState(false);
   const [alert, setAlert] = useState("");
   const [loading, isLoading] = useState(false);
+  const [currentProject, setCurrentProject] = useState("");
 
   // initially sets theme in LS to false
   useEffect(() => {
@@ -24,6 +25,8 @@ export default function App() {
         setAlert,
         loading,
         isLoading,
+        currentProject,
+        setCurrentProject,
       }}
     >
       <ProjectTable />

@@ -1,9 +1,17 @@
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { AppState } from "../App";
 import StatusDropdown from "./StatusDropdown";
 
 export default function Project(props) {
+  const { setCurrentProject } = useContext(AppState);
   return (
-    <tr className="duration-300 odd:bg-white even:bg-gray-50 even:dark:bg-gray-900 odd:dark:bg-gray-800 dark:border-gray-900 border-b ">
+    <tr
+      onClick={() => {
+        setCurrentProject(props.project);
+      }}
+      className="duration-300 odd:bg-white even:bg-gray-50 even:dark:bg-gray-900 odd:dark:bg-gray-800 dark:border-gray-900 border-b "
+    >
       <th
         className="max-w-[250px] px-6 py-4 font-normal whitespace-nowrap text-gray-500 dark:text-white"
         scope="row"
