@@ -12,7 +12,7 @@ export default function GenerateProjectBtn(props) {
         type="button"
         className={`${
           loading && "disabled"
-        } transition ease-in-out text-white bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 ml-auto mr-[2rem] mb-2 dark:bg-sky-600 dark:hover:bg-sky-600 focus:outline-none dark:focus:ring-sky-400`}
+        } transition ease-in-out text-white bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 ml-auto mr-[2rem] mb-2 dark:bg-sky-600 dark:hover:bg-sky-700 focus:outline-none dark:focus:ring-sky-400`}
       >
         New Random Project
       </button>
