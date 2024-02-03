@@ -30,7 +30,7 @@ export default function StatusDropdown(props) {
         >
           {props.status === "abandoned" ? "Abandoned" : "Completed"}
 
-          {props.stats === "abandoned" ? (
+          {props.status === "abandoned" ? (
             <svg
               className="w-2.5 h-2.5 ms-3"
               aria-hidden="true"

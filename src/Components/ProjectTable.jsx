@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { AppState } from "../App";
 import Alert from "./Alerts/Alert";
 import Project from "./Project";
@@ -15,8 +15,17 @@ const supabase = createClient(
 );
 
 export default function ProjectTable() {
-  const { theme, alert, setAlert, loading, isLoading, projects, setProjects } =
-    useContext(AppState);
+  const {
+    theme,
+    alert,
+    loading,
+    isLoading,
+    projects,
+    setProjects,
+    currentPage,
+    setCurrentPage,
+    setAlert,
+  } = useContext(AppState);
 
   useEffect(() => {
     fetchProjects();
@@ -31,6 +40,8 @@ export default function ProjectTable() {
   async function getProjects() {
     isLoading(true);
     const { data } = await supabase.from("projects").select();
+
+    setCurrentPage(1);
     return data;
   }
 
@@ -46,7 +57,7 @@ export default function ProjectTable() {
         messages: [
           {
             role: "user",
-            content: `I want to you to return a JSON object of an array named 'frontendProjects' of random, quick, beginner friendly frontend project ideas. ONLY return a JSON object. Please exclude any of these projects: Pomodoro timers, calculators, or any of these: ${projects.map(
+            content: `I want to you to return a JSON object of an array named 'frontendProjects' of random, quick, beginner friendly frontend project ideas. ONLY return a JSON object. Please exclude any of these projects: Portfolio websites, Pomodoro timers, calculators, calendars or any of these: ${projects.map(
               (proj) => proj.name
             )}`,
           },
@@ -134,24 +145,27 @@ export default function ProjectTable() {
 
               {/* table body */}
               <tbody>
-                {projects.map((project) => {
-                  const id = project.id.toString();
-                  const date = new Date(project.created_at);
-                  const formattedDate = `${date.toLocaleString("default", {
-                    month: "long",
-                  })} ${date.getDate()}, ${date.getFullYear()}`;
-                  return (
-                    <Project
-                      key={project.id}
-                      id={id}
-                      project={project}
-                      projectName={project.name}
-                      createdAt={formattedDate}
-                      status={project.status}
-                      github={project.github_url}
-                    />
-                  );
-                })}
+                {/* only render the projects based off the currentPage and only wanting to show 5 per page */}
+                {projects
+                  .slice((currentPage - 1) * 5, currentPage * 5)
+                  .map((project) => {
+                    const id = project.id.toString();
+                    const date = new Date(project.created_at);
+                    const formattedDate = `${date.toLocaleString("default", {
+                      month: "long",
+                    })} ${date.getDate()}, ${date.getFullYear()}`;
+                    return (
+                      <Project
+                        key={project.id}
+                        id={id}
+                        project={project}
+                        projectName={project.name}
+                        createdAt={formattedDate}
+                        status={project.status}
+                        github={project.github_url}
+                      />
+                    );
+                  })}
               </tbody>
             </table>
           </div>

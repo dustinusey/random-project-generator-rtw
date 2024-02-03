@@ -9,6 +9,7 @@ export default function App() {
   const [loading, isLoading] = useState(false);
   const [currentProject, setCurrentProject] = useState("");
   const [projects, setProjects] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // initially sets theme in LS to false
   useEffect(() => {
@@ -30,6 +31,8 @@ export default function App() {
         setCurrentProject,
         projects,
         setProjects,
+        currentPage,
+        setCurrentPage,
       }}
     >
       <ProjectTable />
