@@ -56,7 +56,7 @@ export default function ProjectTable() {
         messages: [
           {
             role: "user",
-            content: `I want to you to return a JSON object of an array named 'frontendProjects' of random, quick, beginner friendly frontend project ideas. ONLY return a JSON object. Please exclude any of these projects: Portfolio websites, Pomodoro timers, calculators, calendars or any of these: ${projects.map(
+            content: `I want to you to return a JSON object of an array named 'frontendProjects' of random, quick, beginner friendly frontend project ideas for my 100daysofcode challenege. ONLY return a JSON object. Please exclude any of these projects: Portfolio websites, Pomodoro timers, calculators, calendars or any of these: ${projects.map(
               (proj) => proj.name
             )}`,
           },
