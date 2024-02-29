@@ -49,7 +49,7 @@ export default function Project(props) {
 
               <a
                 className="duration-300 text-sky-500 dark:text-sky-500 dark:hover:text-sky-400 hover:text-sky-400 shorten1"
-                href={`https://www.github.com/dustinusey/${props.github}`}
+                href={props.github}
               >
                 {props.github}
               </a>
