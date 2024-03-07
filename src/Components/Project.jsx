@@ -27,6 +27,7 @@ export default function Project(props) {
       <td className="w-[165px] px-3 pr-0 py-4">
         <StatusDropdown projectid={props.id} status={props.status} />
       </td>
+      {/* td */}
       <td className="min-w-[250px] px-6 py-4">
         <div className="flex flex-start items-center">
           {props.github === "" ? (
