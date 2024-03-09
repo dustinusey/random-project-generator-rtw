@@ -1,8 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
 import axios from "axios";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppState } from "../App";
 import Alert from "./Alerts/Alert";
+import Error from "./Error";
 import Project from "./Project";
 import Spinner from "./Spinner";
 import TableHeader from "./TableHeader";
@@ -26,6 +27,9 @@ export default function ProjectTable() {
     setAlert,
   } = useContext(AppState);
 
+  const [failed, hasFailed] = useState(false);
+  const [failedError, setFailedError] = useState("");
+
   useEffect(() => {
     fetchProjects();
   }, []);
@@ -47,42 +51,50 @@ export default function ProjectTable() {
   async function generateNewProject() {
     isLoading(true);
 
-    const response = await axios.post(
-      "https://api.openai.com/v1/chat/completions",
-      {
-        max_tokens: 1000,
-        model: "gpt-3.5-turbo-1106",
-        response_format: { type: "json_object" },
-        messages: [
-          {
-            role: "user",
-            content: `I want to you to return a JSON object of an array named 'frontendProjects' of random, quick, beginner friendly frontend project ideas for my 100daysofcode challenege. ONLY return a JSON object. Please exclude any of these projects: Portfolio websites, Pomodoro timers, calculators, calendars or any of these: ${projects.map(
-              (proj) => proj.name
-            )}`,
-          },
-        ],
-      },
-      { headers: { Authorization: import.meta.env.VITE_OPENAI_KEY } }
-    );
-
-    let resStrings = response.data.choices[0].message.content;
-    let projectList = [JSON.parse(resStrings)][0].frontendProjects;
-
-    let randomProject =
-      projectList[Math.floor(Math.random() * projectList.length)];
-
     try {
-      await supabase.from("projects").insert([
+      const response = await axios.post(
+        "https://api.openai.com/v1/chat/completions",
         {
-          name: randomProject,
-          created_at: new Date(),
-          status: "In Progress",
-          github_url: "",
+          max_tokens: 1000,
+          model: "gpt-3.5-turbo-1106",
+          response_format: { type: "json_object" },
+          messages: [
+            {
+              role: "user",
+              content: `I want to you to return a JSON object of an array named 'frontendProjects' of random, quick, beginner friendly frontend project ideas for my 100daysofcode challenege. ONLY return a JSON object. Please exclude any of these projects: Portfolio websites, Pomodoro timers, calculators, calendars or any of these: ${projects.map(
+                (proj) => proj.name
+              )}`,
+            },
+          ],
         },
-      ]);
-      await fetchProjects();
+        { headers: { Authorization: import.meta.env.VITE_OPENAI_KEY } }
+      );
+
+      let resStrings = response.data.choices[0].message.content;
+      let projectList = [JSON.parse(resStrings)][0].frontendProjects;
+
+      let randomProject =
+        projectList[Math.floor(Math.random() * projectList.length)];
+
+      try {
+        hasFailed(false);
+        await supabase.from("projects").insert([
+          {
+            name: randomProject,
+            created_at: new Date(),
+            status: "In Progress",
+            github_url: "",
+          },
+        ]);
+        await fetchProjects();
+      } catch (error) {
+        console.error(`ERROR: ${error}`);
+      }
     } catch (error) {
-      console.error(`ERROR: ${error}`);
+      setFailedError(error.response.data.error.message);
+      hasFailed(true);
+    } finally {
+      isLoading(false);
     }
   }
 
@@ -115,13 +127,14 @@ export default function ProjectTable() {
 
           {/* loader/spinner */}
           <div className="loading-container m-auto">
+            {failed && <Error message={failedError} />}
             {loading && <Spinner />}
           </div>
 
           {/* project table */}
           <div className="relative shadow-md sm:rounded-lg">
             <table className="overflow-hidden rounded-lg w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              {/* table tutles */}
+              {/* table titles */}
               <thead className=" duration-300 text-md text-gray-600 uppercase bg-gray-50 dark:bg-gray-900  dark:text-white">
                 <tr>
                   <th scope="col" className="px-6 py-7">

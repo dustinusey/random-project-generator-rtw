@@ -24,7 +24,6 @@ export default function TableHeader(props) {
             const newTheme = !darkTheme;
             setDarkTheme(newTheme);
             localStorage.setItem("darkTheme", newTheme);
-            console.log(localStorage.getItem("darkTheme"));
           }}
           className="cursor-pointer mb-[.33rem] w-6 h-6 text-gray-800 dark:text-white"
           aria-hidden="true"
