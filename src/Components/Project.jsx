@@ -1,16 +1,21 @@
-import PropTypes from "prop-types";
 import { useContext } from "react";
 import { AppState } from "../App";
+import DeleteProject from "./DeleteProject";
 import StatusDropdown from "./StatusDropdown";
 
 export default function Project(props) {
+  function deleteProjectPrompt(project) {}
+
   const { setCurrentProject } = useContext(AppState);
   return (
     <tr
+      onMouseOver={() => {
+        deleteProjectPrompt();
+      }}
       onClick={() => {
         setCurrentProject(props.project);
       }}
-      className="duration-300 odd:bg-white even:bg-gray-50 even:dark:bg-gray-900 odd:dark:bg-gray-800 dark:border-gray-900 border-b "
+      className="group relative duration-300 odd:bg-white even:bg-gray-50 even:dark:bg-gray-900 odd:dark:bg-gray-800 dark:border-gray-900 border-b "
     >
       <th
         className=" w-fit px-6 py-4 font-normal whitespace-nowrap text-gray-500 dark:text-white"
@@ -23,7 +28,6 @@ export default function Project(props) {
       <td className="min-w-[200px] px-6 py-4 max-w-fit">
         <p className="shorten1">{props.createdAt}</p>
       </td>
-
       <td className="w-[165px] px-3 pr-0 py-4">
         <StatusDropdown projectid={props.id} status={props.status} />
       </td>
@@ -52,16 +56,13 @@ export default function Project(props) {
                 className="duration-300 text-sky-500 dark:text-sky-500 dark:hover:text-sky-400 hover:text-sky-400 shorten1"
                 href={props.github}
               >
-                {props.github}
+                {props.projectName}
               </a>
             </>
           )}
         </div>
+        <DeleteProject projectID={props.id} />
       </td>
     </tr>
   );
 }
-
-// Project.propTypes = {
-//     id: PropTypes.string.isRequired,
-//   };

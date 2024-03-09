@@ -43,9 +43,11 @@ export default function ProjectTable() {
   async function getProjects() {
     isLoading(true);
     const { data } = await supabase.from("projects").select();
+    // ensures the latest project is first
+    const sortedData = data.sort((a, b) => a.id - b.id);
 
     setCurrentPage(1);
-    return data;
+    return sortedData;
   }
 
   async function generateNewProject() {
@@ -111,13 +113,14 @@ export default function ProjectTable() {
     } else {
       setAlert("error");
     }
-
-    // generateNewProject();
   }
 
   return (
     <div className={darkTheme ? "dark" : ""}>
+      {/* complete, abandon, error popup alerts */}
       {alert && <Alert />}
+
+      {/* project table UI */}
       <div
         className={`project-table mx-auto my-auto flex flex-col items-center justify-center min-h-screen bg-slate-200 dark:bg-slate-700 duration-300`}
       >
