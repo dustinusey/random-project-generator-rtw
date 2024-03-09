@@ -24,7 +24,7 @@ const DeleteProject = (props) => {
     h-[80%] w-[70px] grid place-items-center duration-300 cursor-pointer"
     >
       <svg
-        className="size-[15px] text-zinc-800"
+        className="size-[15px] text-zinc-300"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
