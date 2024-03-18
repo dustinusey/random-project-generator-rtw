@@ -9,7 +9,7 @@ const DeleteProject = (props) => {
   async function deleteProject(projectID) {
     console.log(projectID);
     let { error } = await supabase
-      .from("projects")
+      .from("random-project-generator")
       .delete()
       .eq("id", projectID);
 

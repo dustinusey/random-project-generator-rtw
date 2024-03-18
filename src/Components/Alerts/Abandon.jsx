@@ -35,7 +35,7 @@ export default function Abandon() {
     isLoading(true);
     setAlert(false);
     await supabase
-      .from("projects")
+      .from("random-project-generator")
       .update({ status: updatedStatus })
       .match({ id: project.id });
 
@@ -45,7 +45,7 @@ export default function Abandon() {
   }
 
   async function getProjects() {
-    const { data } = await supabase.from("projects").select();
+    const { data } = await supabase.from("random-project-generator").select();
     return data;
   }
 

@@ -38,7 +38,7 @@ export default function Complete() {
 
     setAlert(false);
     await supabase
-      .from("projects")
+      .from("random-project-generator")
       .update({
         status: updatedStatus,
         github_url: URLInput.current,
@@ -52,7 +52,7 @@ export default function Complete() {
   }
 
   async function getProjects() {
-    const { data } = await supabase.from("projects").select();
+    const { data } = await supabase.from("random-project-generator").select();
     return data;
   }
   return (

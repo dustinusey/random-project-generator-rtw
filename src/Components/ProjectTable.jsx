@@ -42,7 +42,7 @@ export default function ProjectTable() {
 
   async function getProjects() {
     isLoading(true);
-    const { data } = await supabase.from("projects").select();
+    const { data } = await supabase.from("random-project-generator").select();
     // ensures the latest project is first
     const sortedData = data.sort((a, b) => a.id - b.id);
 
@@ -80,7 +80,7 @@ export default function ProjectTable() {
 
       try {
         hasFailed(false);
-        await supabase.from("projects").insert([
+        await supabase.from("random-project-generator").insert([
           {
             name: randomProject,
             created_at: new Date(),
